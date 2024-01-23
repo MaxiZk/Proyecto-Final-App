@@ -38,48 +38,60 @@
     <section>
         <h2>Wallet</h2>
         <p>Aquí podrás administrar tu dinero, visualizar tus ingresos y gastos.</p>
+        <h2>Saldo actual: <span id="saldo">15000</span></h2>
+    <script>
+  window.addEventListener('message', async (event) => {
+    if (event.data.type === 'updateWallet' || event.data.type === 'updateWalletAmount') {
+        const walletAmountSpan = document.getElementById('saldo');
+        const currentAmount = parseFloat(walletAmountSpan.innerText);
+        const newAmount = currentAmount + event.data.amount;
 
-        <h2>Saldo actual: <span id="saldo">0</span></h2>
-        <p>Aquí puedes ver el saldo actual de tu cartera.</p>
-        <script>
-            const walletForm = document.getElementById('wallet-form');
-            const walletAmountInput = document.getElementById('wallet-amount');
-        
-            walletForm.addEventListener('submit', async (event) => {
-                event.preventDefault();
-                const walletAmount = parseFloat(walletAmountInput.value);
-        
-                try {
-                    // Make a POST request to the server
-                    const response = await fetch('your-wallet-api-endpoint', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ amount: walletAmount }),
-                    });
-        
-                    if (response.ok) {
-                        console.log('Amount saved successfully!');
-                    } else {
-                        console.error('Failed to save amount.');
-                    }
-                } catch (error) {
-                    console.error('Error:', error);
-                }
-        
-                // Check if window.opener is available before using postMessage
-                if (window.opener && !window.opener.closed) {
-                    window.opener.postMessage({ type: 'updateWalletAmount', amount: walletAmount }, '*');
-                } else {
-                    console.error('window.opener is null, undefined, or closed');
-                }
-        
-                window.close();
+        // Update the displayed wallet amount
+        walletAmountSpan.innerText = newAmount.toFixed(2);
+
+         // Save the new amount to localStorage
+         localStorage.setItem('walletAmount', newAmount);
+
+        try {
+            // Make a POST request to the server (update with your actual endpoint)
+            const response = await fetch('http://localhost:3000/api/income', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ amount: newAmount }),
             });
-        </script>
-    </section>
 
+            if (response.ok) {
+                console.log('Amount saved successfully!');
+            } else {
+                console.error('Failed to save amount.');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+
+        // Check if window.opener is available and not closed before using postMessage
+        if (window.opener && !window.opener.closed) {
+            try {
+                window.opener.postMessage({ type: 'updateWalletAmount', amount: newAmount }, '*');
+            } catch (postMessageError) {
+                console.error('Error sending postMessage to window.opener:', postMessageError);
+            }
+        } else {
+            console.error('window.opener is null, undefined, or closed');
+        }
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+        const storedAmount = localStorage.getItem('walletAmount');
+        if (storedAmount) {
+            const walletAmountSpan = document.getElementById('saldo');
+            walletAmountSpan.innerText = parseFloat(storedAmount).toFixed(2);
+        }
+    });
+});
+    </script>
+    </section>
     <section>
         <h2>Ingreso</h2>
         <p>Agrega tus ingresos mensuales para mantener un registro actualizado de tus finanzas personales.</p>
@@ -109,6 +121,9 @@
         
                     if (response.ok) {
                         console.log('Income saved successfully!');
+        
+                        // Send a message to the parent window to update the wallet
+                        window.parent.postMessage({ type: 'updateWallet', amount: salary }, '*');
                     } else {
                         console.error('Failed to save income.');
                     }
@@ -117,7 +132,6 @@
                 }
             });
         </script>
-        
     </section>
 
     <footer>
@@ -127,5 +141,6 @@
 
     <script src="../src/index.js"></script>
     <script src="./server.js"></script>
+    <script src="./form.js"></script>
 </body>
 </html>
