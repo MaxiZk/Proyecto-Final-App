@@ -5,6 +5,7 @@ import Home from './componentes/Home.js';
 import Income from './componentes/Income.js';
 import Investments from './componentes/Investment.js';
 import Wallet from './componentes/Wallet.js';
+import WalletModal from './componentes/Wallet.js'; 
 
 const App = () => {
   const [walletAmount, setWalletAmount] = useState(0);
@@ -27,12 +28,12 @@ const App = () => {
     <div>
       <Router>
         <Navbar />
-        <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/income" component={Income} />
-          <Route path="/investments" component={Investments} />
-          <Route path="/wallet" component={() => <Wallet walletAmount={walletAmount} onClick={openWalletModal} />} />
-        </Switch>
+        <Routes>
+          <Route path="/" element={<Home/>} />
+          <Route path="/income" element={<Income/>} />
+          <Route path="/investments" element={<Investments/>} />
+          <Route path="/wallet" element={<Wallet/>} />
+        </Routes>
       </Router>
       <WalletModal
         isOpen={isWalletModalOpen}

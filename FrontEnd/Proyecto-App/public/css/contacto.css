@@ -1,0 +1,36 @@
+#contacto {
+    padding: 20px;
+}
+
+#contacto h2 {
+    color: #4CAF50;
+}
+
+#contacto form {
+    display: flex;
+    flex-direction: column;
+}
+
+#contacto label {
+    margin-bottom: 5px;
+}
+
+#contacto input, #contacto textarea {
+    margin-bottom: 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#contacto button {
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#contacto button:hover {
+    background-color: #3e8e41;
+}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wallet</title>
+    <link rel="stylesheet" href="../css/wallet.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Inicio</a></li>
+                <li><a href="wallet.html">Wallet</a></li>
+                <li><a href="ingreso.html">Ingreso</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section>
+        <h2>Wallet</h2>
+        <p>Aquí podrás administrar tu dinero, visualizar tus ingresos y gastos.</p>
+
+        <h2>Saldo actual: <span id="saldo">0</span></h2>
+        <p>Aquí puedes ver el saldo actual de tu cartera.</p>
+
+        <script>
+            // Obtener el saldo actual desde el local storage
+            var saldo = localStorage.getItem('saldo') || 0;
+            document.getElementById('saldo').textContent = saldo;
+    
+            // Actualizar el saldo cuando se carga la página de ingreso
+            window.addEventListener('message', (event) => {
+            if (event.data.type === 'addIncome') {
+                const newBalance = parseFloat(balanceElement.textContent) + event.data.amount;
+                balanceElement.textContent = newBalance.toFixed(2);
+            }
+        });
+        </script>
+    </section>
+</body>
+</html>

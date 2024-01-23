@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingreso</title>
+    <link rel="stylesheet" href="../css/ingreso.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Inicio</a></li>
+                <li><a href="wallet.html">Wallet</a></li>
+                <li><a href="ingreso.html">Ingreso</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section>
+        <h2>Ingreso</h2>
+        <p>Agrega tus ingresos mensuales para mantener un registro actualizado de tus finanzas personales.</p>
+        <!DOCTYPE html>
+
+    <h1>Enter your salary:</h1>
+    <form id="income-form">
+        <input type="number" id="income-input" step="0.01" min="0" required>
+        <button type="submit">Submit</button>
+    </form>
+    <script>
+        const form = document.getElementById('income-form');
+        const input = document.getElementById('income-input');
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const salary = parseFloat(input.value);
+            window.opener.postMessage({ type: 'addIncome', amount: salary }, '*');
+            window.close();
+        });
+    </script>
+    </section>
+</body>
+</html>
