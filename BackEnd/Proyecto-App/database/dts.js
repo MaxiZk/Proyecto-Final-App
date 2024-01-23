@@ -1,13 +1,17 @@
 const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+
+dotenv.config();
+
+const DB_NAME = process.env.DB_NAME;
+const DB_PASSWORD = process.env.DB_PASSWORD;
+const URL = process.env.URL;
 
 // Configura la opción strictQuery
-mongoose.set('strictQuery', true);
+mongoose.set('strictQuery', false);
 
-mongoose.connect('mongodb+srv://maxizuidwijk27:<Junior2003>@cluster0.gmonyao.mongodb.net/', {
+mongoose.connect(URL, {
   useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false,
-  useCreateIndex: true
 })
 .then(() => {
   console.log('Conexión exitosa!');
@@ -16,12 +20,5 @@ mongoose.connect('mongodb+srv://maxizuidwijk27:<Junior2003>@cluster0.gmonyao.mon
   console.error(err);
 });
 
-mongoose.connection.once('open', () => {
-  console.log('Connected to MongoDB');
-});
-
-mongoose.connection.on('error', (error) => {
-  console.error('Error connecting to MongoDB:', error);
-});
 
 export default db;
