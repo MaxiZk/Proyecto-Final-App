@@ -8,7 +8,7 @@ const DB_PASSWORD = process.env.DB_PASSWORD;
 const URL = process.env.URL;
 
 // Configura la opción strictQuery
-mongoose.set('strictQuery', false);
+mongoose.set('strictQuery', true);
 
 mongoose.connect(URL, {
   useNewUrlParser: true,

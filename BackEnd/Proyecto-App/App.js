@@ -12,7 +12,9 @@ app.use('/api', routes);
 // Connect to MongoDB
 process.env.NODE_NO_DEPRECATION = 1;
 
-mongoose.connect(process.env.MONGODB_URI, {
+const mongoURI = 'mongodb+srv://maxizuidwijk27:Junior2003@cluster0.gmonyao.mongodb.net/your_database';
+
+mongoose.connect(mongoURI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
@@ -59,7 +61,7 @@ app.delete('/finances/:id', async (req, res) => {
 });
 
 // Start the server
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
