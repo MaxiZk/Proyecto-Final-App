@@ -12,6 +12,7 @@ mongoose.set('strictQuery', true);
 
 mongoose.connect(URL, {
   useNewUrlParser: true,
+  useUnifiedTopology: true,
 })
 .then(() => {
   console.log('Conexión exitosa!');
@@ -21,4 +22,4 @@ mongoose.connect(URL, {
 });
 
 
-export default db;
+module.exports = mongoose.connection;

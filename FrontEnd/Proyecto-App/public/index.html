@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Finance Tracker</title>
-    <link rel="stylesheet" href="/ProyectoWebAvanzado/public/index.css">
-    <link rel="stylesheet" href="/ProyectoWebAvanzado/app/server.mjs">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
 </head>
 <body>
     <header>
@@ -35,13 +35,97 @@
             Desde acciones hasta fondos mutuos, la aplicación te brinda una visión integral de cómo están evolucionando tus inversiones. </p>
     </section>
 
+    <section>
+        <h2>Wallet</h2>
+        <p>Aquí podrás administrar tu dinero, visualizar tus ingresos y gastos.</p>
+
+        <h2>Saldo actual: <span id="saldo">0</span></h2>
+        <p>Aquí puedes ver el saldo actual de tu cartera.</p>
+        <script>
+            const walletForm = document.getElementById('wallet-form');
+            const walletAmountInput = document.getElementById('wallet-amount');
+        
+            walletForm.addEventListener('submit', async (event) => {
+                event.preventDefault();
+                const walletAmount = parseFloat(walletAmountInput.value);
+        
+                try {
+                    // Make a POST request to the server
+                    const response = await fetch('your-wallet-api-endpoint', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ amount: walletAmount }),
+                    });
+        
+                    if (response.ok) {
+                        console.log('Amount saved successfully!');
+                    } else {
+                        console.error('Failed to save amount.');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+        
+                // Check if window.opener is available before using postMessage
+                if (window.opener && !window.opener.closed) {
+                    window.opener.postMessage({ type: 'updateWalletAmount', amount: walletAmount }, '*');
+                } else {
+                    console.error('window.opener is null, undefined, or closed');
+                }
+        
+                window.close();
+            });
+        </script>
+    </section>
+
+    <section>
+        <h2>Ingreso</h2>
+        <p>Agrega tus ingresos mensuales para mantener un registro actualizado de tus finanzas personales.</p>
+
+        <h1>Enter your salary:</h1>
+        <form id="income-form">
+            <input type="number" id="income-input" step="0.01" min="0" required>
+            <button type="submit">Submit</button>
+        </form>
+        <script>
+            const form = document.getElementById('income-form');
+            const input = document.getElementById('income-input');
+        
+            form.addEventListener('submit', async (event) => {
+                event.preventDefault();
+                const salary = parseFloat(input.value);
+        
+                try {
+                    // Make a POST request to the server
+                    const response = await fetch('http://localhost:3000/api/income', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ amount: salary }),
+                    });
+        
+                    if (response.ok) {
+                        console.log('Income saved successfully!');
+                    } else {
+                        console.error('Failed to save income.');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            });
+        </script>
+        
+    </section>
+
     <footer>
         <p>&copy; 2022 Finance Tracker. Todos los derechos reservados.</p>
         <p>Preguntas frecuentes | Términos y condiciones | Política de privacidad</p>
 </footer>
 
-    <script type="module" src="/ProyectoWebAvanzado/codigo/main.mjs"></script>
-    <script type="module" src="/ProyectoWebAvanzado/app/index.mjs"></script>
-    <script type="module" src="script.js"></script>
+    <script src="../src/index.js"></script>
+    <script src="./server.js"></script>
 </body>
 </html>
