@@ -1,50 +1,75 @@
 body {
     font-family: Arial, sans-serif;
-    line-height: 1.6;
-    margin: 0;
-    padding: 0;
-}
-
-header {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 10px;
-}
-
-nav ul {
+    background-color: #e0e0e0;
+ }
+ 
+ /* CSS para los encabezados */
+ h1, h2, h3, h4, h5, h6 {
+    font-size: 24px;
+    color: #000000;
+ }
+ 
+ h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
+    font-size: 16px;
+    color: #666666;
+ }
+ 
+ /* CSS para los párrafos */
+ p {
+    font-size: 16px;
+    color: #000000;
+ }
+ 
+ /* CSS para los elementos de la navegación */
+ nav ul {
     list-style-type: none;
     padding: 0;
-}
-
-nav ul li {
+    margin: 0;
+ }
+ 
+ nav ul li {
     display: inline;
-    margin-right: 10px;
-}
-
-nav ul li a {
-    color: #333;
+ }
+ 
+ nav ul li a {
     text-decoration: none;
-}
-
-main {
+    color: #fff;
+    font-size: 18px;
+    padding: 8px 25px;
+    transition: color var(--transition-duration) ease;
+ }
+ 
+ nav ul li a:hover {
+    color: #ddd;
+    text-shadow: 2px 2px 4px #000;
+ }
+ 
+ /* CSS para los elementos principales del sitio web */
+ header, footer, main {
     padding: 20px;
-}
-
-section {
-    margin-bottom: 20px;
-}
-
-section h2 {
-    margin-bottom: 10px;
-}
-
-footer {
-    background-color: #333;
-    color: white;
+ }
+ 
+ header {
+    background-color: #000000;
     text-align: center;
-    padding: 10px;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-}
+ }
+ 
+ footer {
+    background-color: #e0e0e0;
+    text-align: center;
+ }
+ 
+ main {
+    background-color: #ffffff;
+ }
+ 
+ /* Media queries para diferentes tamaños de pantalla */
+ @media (max-width: 767px) {
+    nav {
+        flex-direction: column;
+    }
+ 
+    nav ul li {
+        text-align: center;
+    }
+ }
