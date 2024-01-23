@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import IncomeForm from '../public/form.js';
 import Navbar from './componentes/NavBar.js';
 import Home from './componentes/Home.js';
 import Income from './componentes/Income.js';

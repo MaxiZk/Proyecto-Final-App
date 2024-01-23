@@ -12,10 +12,10 @@
     <nav> 
         <ul> 
             <li><a href="#home">Home</a>
-            </li> <li><a href="./paginas/wallet.html">Wallet</a>
-            </li> <li><a href="./paginas/ingreso.html">Ingreso</a>
-            </li> <li><a href="./paginas/inversion.html">Inversiones</a>
-            </li> <li><a href="./paginas/contacto.html">Contacto</a></li> 
+            </li> <li><a href="/paginas/wallet.html">Wallet</a>
+            </li> <li><a href="/paginas/ingreso.html">Ingreso</a>
+            </li> <li><a href="/paginas/inversion.html">Inversiones</a>
+            </li> <li><a href="/paginas/contacto.html">Contacto</a></li> 
         </ul> 
     </nav>
 </header>
@@ -132,6 +132,22 @@
                 }
             });
         </script>
+    </section>
+
+    <section id="contacto">
+        <h2>Contacto</h2>
+        <form action="/submit" method="post">
+            <label for="name">Nombre:</label>
+            <input type="text" id="name" name="name" required>
+            <br>
+            <label for="email">Correo electrónico:</label>
+            <input type="email" id="email" name="email" required>
+            <br>
+            <label for="message">Mensaje:</label>
+            <textarea id="message" name="message" required></textarea>
+            <br>
+            <button type="submit">Enviar</button>
+        </form>
     </section>
 
     <footer>

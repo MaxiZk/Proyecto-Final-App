@@ -6,16 +6,16 @@ const Navbar = () => {
     <nav>
       <ul>
         <li>
-          <Link to="/">Home</Link>
+          <Link to="./Home.js">Home</Link>
         </li>
         <li>
-          <Link to="/income">Income</Link>
+          <Link to="./Income.js">Income</Link>
         </li>
         <li>
-          <Link to="/investments">Investments</Link>
+          <Link to="./Investment.js">Investments</Link>
         </li>
         <li>
-        <Link to="/wallet">Wallet</Link>
+        <Link to="./Wallet.js">Wallet</Link>
         </li>
       </ul>
     </nav>
