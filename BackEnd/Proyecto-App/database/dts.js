@@ -1,24 +1,27 @@
-import mongoose from 'mongoose';
-import dotenv from 'dotenv';
-
-dotenv.config();
-
-
-/* const DB_NAME = process.env.DB_NAME;
-const DB_PASSWORD = process.env.DB_PASSWORD; */
-const URL = process.env.URL;
+const mongoose = require('mongoose');
 
 // Configura la opción strictQuery
-mongoose.set('strictQuery', false);
+mongoose.set('strictQuery', true);
 
-const db = mongoose.connect(URL, {
+mongoose.connect('mongodb+srv://maxizuidwijk27:<Junior2003>@cluster0.gmonyao.mongodb.net/', {
   useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false,
+  useCreateIndex: true
 })
-  .then(() => {
-    console.log('Conexión exitosa!');
-  })
-  .catch((err) => {
-    console.error(err);
-  });
+.then(() => {
+  console.log('Conexión exitosa!');
+})
+.catch((err) => {
+  console.error(err);
+});
+
+mongoose.connection.once('open', () => {
+  console.log('Connected to MongoDB');
+});
+
+mongoose.connection.on('error', (error) => {
+  console.error('Error connecting to MongoDB:', error);
+});
 
 export default db;

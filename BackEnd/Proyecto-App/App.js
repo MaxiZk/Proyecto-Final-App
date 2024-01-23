@@ -10,6 +10,8 @@ const routes = require('./Routes/routes.js');
 app.use('/api', routes);
 
 // Connect to MongoDB
+process.env.NODE_NO_DEPRECATION = 1;
+
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
