@@ -12,10 +12,10 @@
     <nav> 
         <ul> 
             <li><a href="#home">Home</a>
-            </li> <li><a href="/paginas/wallet.html">Wallet</a>
-            </li> <li><a href="/paginas/ingreso.html">Ingreso</a>
-            </li> <li><a href="/paginas/inversion.html">Inversiones</a>
-            </li> <li><a href="/paginas/contacto.html">Contacto</a></li> 
+            </li> <li><a href="./paginas/wallet.html">Wallet</a>
+            </li> <li><a href="./paginas/ingreso.html">Ingreso</a>
+            </li> <li><a href="./paginas/inversion.html">Inversiones</a>
+            </li> <li><a href="./paginas/contacto.html">Contacto</a></li> 
         </ul> 
     </nav>
 </header>
@@ -33,121 +33,6 @@
         <p>Seguimiento de Inversiones en Tiempo Real:
             Para aquellos que buscan maximizar su dinero, FinanzasMóvil permite el seguimiento en tiempo real de tus inversiones. 
             Desde acciones hasta fondos mutuos, la aplicación te brinda una visión integral de cómo están evolucionando tus inversiones. </p>
-    </section>
-
-    <section>
-        <h2>Wallet</h2>
-        <p>Aquí podrás administrar tu dinero, visualizar tus ingresos y gastos.</p>
-        <h2>Saldo actual: <span id="saldo">15000</span></h2>
-    <script>
-  window.addEventListener('message', async (event) => {
-    if (event.data.type === 'updateWallet' || event.data.type === 'updateWalletAmount') {
-        const walletAmountSpan = document.getElementById('saldo');
-        const currentAmount = parseFloat(walletAmountSpan.innerText);
-        const newAmount = currentAmount + event.data.amount;
-
-        // Update the displayed wallet amount
-        walletAmountSpan.innerText = newAmount.toFixed(2);
-
-         // Save the new amount to localStorage
-         localStorage.setItem('walletAmount', newAmount);
-
-        try {
-            // Make a POST request to the server (update with your actual endpoint)
-            const response = await fetch('http://localhost:3000/api/income', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ amount: newAmount }),
-            });
-
-            if (response.ok) {
-                console.log('Amount saved successfully!');
-            } else {
-                console.error('Failed to save amount.');
-            }
-        } catch (error) {
-            console.error('Error:', error);
-        }
-
-        // Check if window.opener is available and not closed before using postMessage
-        if (window.opener && !window.opener.closed) {
-            try {
-                window.opener.postMessage({ type: 'updateWalletAmount', amount: newAmount }, '*');
-            } catch (postMessageError) {
-                console.error('Error sending postMessage to window.opener:', postMessageError);
-            }
-        } else {
-            console.error('window.opener is null, undefined, or closed');
-        }
-    }
-    document.addEventListener('DOMContentLoaded', () => {
-        const storedAmount = localStorage.getItem('walletAmount');
-        if (storedAmount) {
-            const walletAmountSpan = document.getElementById('saldo');
-            walletAmountSpan.innerText = parseFloat(storedAmount).toFixed(2);
-        }
-    });
-});
-    </script>
-    </section>
-    <section>
-        <h2>Ingreso</h2>
-        <p>Agrega tus ingresos mensuales para mantener un registro actualizado de tus finanzas personales.</p>
-
-        <h1>Enter your salary:</h1>
-        <form id="income-form">
-            <input type="number" id="income-input" step="0.01" min="0" required>
-            <button type="submit">Submit</button>
-        </form>
-        <script>
-            const form = document.getElementById('income-form');
-            const input = document.getElementById('income-input');
-        
-            form.addEventListener('submit', async (event) => {
-                event.preventDefault();
-                const salary = parseFloat(input.value);
-        
-                try {
-                    // Make a POST request to the server
-                    const response = await fetch('http://localhost:3000/api/income', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ amount: salary }),
-                    });
-        
-                    if (response.ok) {
-                        console.log('Income saved successfully!');
-        
-                        // Send a message to the parent window to update the wallet
-                        window.parent.postMessage({ type: 'updateWallet', amount: salary }, '*');
-                    } else {
-                        console.error('Failed to save income.');
-                    }
-                } catch (error) {
-                    console.error('Error:', error);
-                }
-            });
-        </script>
-    </section>
-
-    <section id="contacto">
-        <h2>Contacto</h2>
-        <form action="/submit" method="post">
-            <label for="name">Nombre:</label>
-            <input type="text" id="name" name="name" required>
-            <br>
-            <label for="email">Correo electrónico:</label>
-            <input type="email" id="email" name="email" required>
-            <br>
-            <label for="message">Mensaje:</label>
-            <textarea id="message" name="message" required></textarea>
-            <br>
-            <button type="submit">Enviar</button>
-        </form>
     </section>
 
     <footer>
